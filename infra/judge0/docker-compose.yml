@@ -1,0 +1,23 @@
+services:
+  piston:
+    image: ghcr.io/engineer-man/piston
+    restart: unless-stopped
+    ports:
+      - "2000:2000"
+    privileged: true
+    volumes:
+      - piston-data:/piston
+    tmpfs:
+      - /tmp:exec,mode=777
+    environment:
+      PISTON_LOG_LEVEL: INFO
+      PISTON_RUNNER_MEMORY_LIMIT: 0
+      PISTON_RUNNER_MAX_PROCESS_COUNT: 32
+      PISTON_RUNNER_MAX_OPEN_FILES: 1024
+      PISTON_RUNNER_CPU_TIME: 2000
+      PISTON_RUNNER_WALL_TIME: 3000
+      # Set this on production — must match JUDGE0_AUTH_TOKEN in Vercel env vars
+      # PISTON_API_KEY: your_secret_token_here
+
+volumes:
+  piston-data:

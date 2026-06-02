@@ -1,0 +1,29 @@
+app = "dsafun-piston"
+primary_region = "bom"
+
+[build]
+  image = "ghcr.io/engineer-man/piston"
+
+[env]
+  PISTON_LOG_LEVEL          = "INFO"
+  PISTON_RUNNER_MEMORY_LIMIT        = "0"
+  PISTON_RUNNER_MAX_PROCESS_COUNT   = "32"
+  PISTON_RUNNER_MAX_OPEN_FILES      = "1024"
+  PISTON_RUNNER_CPU_TIME            = "2000"
+  PISTON_RUNNER_WALL_TIME           = "3000"
+
+[http_service]
+  internal_port    = 2000
+  force_https      = true
+  auto_stop_machines  = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[mounts]
+  source      = "piston_data"
+  destination = "/piston"
+
+[[vm]]
+  memory   = "2gb"
+  cpu_kind = "shared"
+  cpus     = 2
